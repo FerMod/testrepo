@@ -1,0 +1,60 @@
+name: Bug Report
+description: Create a report to help us improve
+labels: [bug]
+body:
+- type: markdown
+  attributes:
+    value: |
+      First of all. Thank you for sending this pull request!
+      Remember to provide a general summary of your changes in the Title above.
+- type: textarea
+  id: pr-description
+  attributes:
+    label: Description
+    description: Describe your changes in detail.
+    placeholder: Pull request description...
+  validations:
+    required: true
+- type: textarea
+  id: pr-motivation
+  attributes:
+    label: Motivation and Context
+    description: |
+      Why is this change required? What problem does it solve?
+      If it fixes an open issue, please reference the issue here. Remember to use [Closing keywords](https://docs.github.com/articles/closing-issues-using-keywords) in the description to automatically close issues.
+    placeholder: |
+      Closes #123, #111
+- type: checkboxes
+  id: type-of-changes
+  attributes:
+    label: Type of Changes
+    description: What types of changes does your code introduce? Put an `x` in all the boxes that apply
+    options:
+      - label: Bug fix (non-breaking change which fixes an issue)
+      - label: New feature (non-breaking change which adds functionality)
+      - label: Breaking change (fix or feature that would cause existing functionality to not work as expected)
+  validations:
+    required: true
+- type: checkboxes
+  id: checklist
+  attributes:
+    label: Checklist
+    description: |
+      Go over all the following points, and put an `x` in all the boxes that apply.
+      If you're unsure about any of these, don't hesitate to ask. We're here to help!
+    options:
+      - label: My code follows the code style of this project.
+      - label: My change requires a change to the documentation.
+      - label: I have updated the documentation accordingly.
+  validations:
+    required: true
+- type: checkboxes
+  id: terms
+  attributes:
+    label: Code of Conduct
+    description: By submiting this pull request, you agree to follow our [contributing guidelines](../blob/main/CONTRIBUTING.md) and [code of conduct](../blob/main/CODE_OF_CONDUCT.md).
+    options:
+      - label: My contribution follow this project's [contributing guidelines](../blob/main/CONTRIBUTING.md)
+        required: true
+      - label: I agree to follow this project's [Code of Conduct](../blob/main/CODE_OF_CONDUCT.md)
+        required: true
