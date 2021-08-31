@@ -1,20 +1,36 @@
 name: Bug Report
 description: Create a report to help us improve
-title: "[Bug]: "
+title: ""
+assignees: ""
 labels: [bug, triage]
 body:
   - type: markdown
     attributes:
       value: |
         Thanks for taking the time to fill out this bug report!
+        
+        Note: Please search to see if an issue already exists for the bug you encountered.
   - type: textarea
-    id: what-happened
+    id: bug-description
     attributes:
       label: Describe the bug
       description: A clear and concise description of what the bug is.
       placeholder: Tell us what you see!
     validations:
       required: true
+  - type: textarea
+  id: reproduction-steps
+  attributes:
+    label: Reproduction steps
+    description: Steps to reproduce the behavior. Please walk us through it step by step.
+    placeholder: |
+      1.
+      2.
+      3.
+      ...
+    render: bash
+  validations:
+    required: true
   - type: dropdown
     id: version
     attributes:
