@@ -5,10 +5,10 @@ assignees: ""
 labels: [bug, triage]
 body:
 - type: markdown
-attributes:
-  value: |
-    Thanks for taking the time to fill out this bug report!
-    Note: Please search to see if an issue already exists for the bug you encountered.
+  attributes:
+    value: |
+      Thanks for taking the time to fill out this bug report!
+      Note: Please search to see if an issue already exists for the bug you encountered.
 - type: textarea
   id: bug-description
   attributes:
