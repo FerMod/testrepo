@@ -3,6 +3,7 @@ description: Suggest a new feature or enhancemets for this project
 labels: [enhancement]
 body:
 - type: textarea
+  id: feature-description
   attributes:
     description: |
       Describe the new feature you'd like to see.
