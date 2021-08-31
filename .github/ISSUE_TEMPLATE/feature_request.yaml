@@ -7,7 +7,7 @@ body:
   attributes:
     label: Description
     description: |
-      Describe the new feature or wnhancements you'd like to see.
+      Describe the new feature or enhancements you'd like to see.
     placeholder: Feature or enhancement description...
   validations:
     required: true
