@@ -2,13 +2,13 @@ name: Draft Release
 on:
   workflow_dispatch:
     # Enable manual workflow run
+    inputs:
+      tags:
+        description: 'Test scenario tags' 
   push:
     # Sequence of patterns matched against refs/tags
     tags:
       - "v*" # Push events that match "*". For example: "1.0", "20.15.10"
-  inputs:
-      tags:
-        description: 'Test scenario tags' 
 
 jobs:
   build:
