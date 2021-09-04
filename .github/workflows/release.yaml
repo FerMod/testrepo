@@ -13,9 +13,10 @@ on:
 jobs:
   build:
     name: Create build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       # Upload the build.
       - name: Get release tag version
-        run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/*}" >> $GITHUB_ENV
-      - run: echo $RELEASE_TAG
+        run: |
+          echo "RELEASE_TAG=${GITHUB_REF#refs/tags/*}" >> $GITHUB_ENV
+          echo "Tag: ${{ env.RELEASE_TAG }}"
