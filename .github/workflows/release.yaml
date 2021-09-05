@@ -6,17 +6,23 @@ on:
       tags:
         description: 'Test scenario tags' 
   push:
+    branches:
+      - main
     # Sequence of patterns matched against refs/tags
     tags:
       - "v*" # Push events that match "*". For example: "1.0", "20.15.10"
+env:
+  REPOSITORY_NAME: ${{ github.event.repository.name }}
 
 jobs:
-  build:
-    name: Create build
+  test-workflow:
+    name: Test Workflows
     runs-on: ubuntu-latest
     steps:
       # Upload the build.
       - name: Get release tag version
         run: echo "RELEASE_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - run: echo "Tag ${{ env.RELEASE_TAG }}"
-
+      
+      - name: Repository name
+        run: echo $REPOSITORY_NAME
