@@ -94,11 +94,7 @@ jobs:
         run: |
           Copy-Item (vswhere -latest -find 'VC\Redist\MSVC\*\x64\*\msvcp140.dll') .
           Copy-Item (vswhere -latest -find 'VC\Redist\MSVC\*\x64\*\vcruntime140.dll') .
-          Copy-Item (vswhere -latest -find 'VC\Redist\MSVC\*\x64\*\vcruntime140_1.dll') .
-
-      - name: Get release tag version
-        run: echo "BUILD_ASSET_NAME=${{ github.event.repository.name }}_${{ matrix.target }}-${GITHUB_REF#refs/*/}${{ matrix.asset_extension }}" >> $GITHUB_ENV
-      
+          Copy-Item (vswhere -latest -find 'VC\Redist\MSVC\*\x64\*\vcruntime140_1.dll') .      
       
       # Compress build.
       - name: Compress build for Windows
