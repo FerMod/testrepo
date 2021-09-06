@@ -45,11 +45,10 @@ jobs:
       # Disable fail-fast as we want results from all even if one fails.
       fail-fast: false
     steps:
-    
       - name: Get release tag version
         run: echo "RELEASE_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-        env:
-          BUILD_ASSET_NAME: ${{ env.REPOSITORY_NAME }}_${{ matrix.build_target }}_${{ env.RELEASE_TAG }}${{ matrix.asset_extension }}
+      - env:
+          BUILD_ASSET_NAME: ${{ github.event.repository.name }}_${{ matrix.build_target }}_${{ env.RELEASE_TAG }}${{ matrix.asset_extension }}
         
       # Set up Flutter.
       - name: Clone Flutter repository with ${{ matrix.channel }} channel
