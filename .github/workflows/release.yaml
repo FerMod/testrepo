@@ -11,8 +11,7 @@ on:
     # Sequence of patterns matched against refs/tags
     tags:
       - "v*" # Push events that match "*". For example: "1.0", "20.15.10"
-env:
-  REPOSITORY_NAME: ${{ github.event.repository.name }}
+
 
 jobs:
   test-workflow:
@@ -26,6 +25,9 @@ jobs:
       
       - name: Repository name
         run: echo $REPOSITORY_NAME
+        
+      - name: Get release tag version
+        run: echo "BUILD_ASSET_NAME=${{ github.event.repository.name }}_something-${GITHUB_REF#refs/*/}.extension" >> $GITHUB_ENV
 
   build:
     name: Create ${{ matrix.target }} build
@@ -43,6 +45,12 @@ jobs:
       # Disable fail-fast as we want results from all even if one fails.
       fail-fast: false
     steps:
+    
+      - name: Get release tag version
+        run: echo "RELEASE_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+        env:
+          BUILD_ASSET_NAME: ${{ env.REPOSITORY_NAME }}_${{ matrix.build_target }}_${{ env.RELEASE_TAG }}${{ matrix.asset_extension }}
+        
       # Set up Flutter.
       - name: Clone Flutter repository with ${{ matrix.channel }} channel
         uses: subosito/flutter-action@v1.5.3
