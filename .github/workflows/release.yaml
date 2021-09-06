@@ -31,7 +31,8 @@ jobs:
     name: Create ${{ matrix.target }} build
     runs-on: ${{ matrix.os }}
     env:
-      BUILD_ASSET_NAME: ${{ github.event.repository.name }}_${{ matrix.target }}-${{ github.ref }}${{ matrix.asset_extension }}
+      RELEASE_TAG: ${{ GITHUB_REF#refs/*/ }}
+      BUILD_ASSET_NAME: ${{ github.event.repository.name }}_${{ matrix.target }}-${{ RELEASE_TAG }}${{ matrix.asset_extension }}
     strategy:
       matrix:
         target: [android] # [android, ios, linux, macos, windows, web]
@@ -110,8 +111,6 @@ jobs:
         working-directory: ${{ matrix.build_path }}
 
       # Upload the build.
-      - name: Get release tag version
-        run: echo "RELEASE_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - name: Upload release asset
         id: upload_release_asset
         uses: softprops/action-gh-release@v1
