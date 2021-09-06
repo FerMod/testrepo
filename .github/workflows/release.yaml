@@ -31,7 +31,7 @@ jobs:
     name: Create ${{ matrix.target }} build
     runs-on: ${{ matrix.os }}
     env:
-      RELEASE_TAG: ${{ $GITHUB_REF#refs/*/ }}
+      RELEASE_TAG: "${ GITHUB_REF#refs/*/ }"
       BUILD_ASSET_NAME: ${{ github.event.repository.name }}_${{ matrix.target }}-${{ $GITHUB_REF#refs/*/ }}${{ matrix.asset_extension }}
     strategy:
       matrix:
