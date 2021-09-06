@@ -46,12 +46,7 @@ jobs:
       fail-fast: false
     env:
       REPOSITORY_NAME: ${{ github.event.repository.name }}
-    steps:
-      - name: Get release tag version
-        run: echo "RELEASE_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-      - name: Create build asset name
-        run: echo "BUILD_ASSET_NAME=${{ env.REPOSITORY_NAME }}_${{ matrix.build_target }}_${{ env.RELEASE_TAG }}${{ matrix.asset_extension }}" >> $GITHUB_ENV
-        
+    steps:        
       # Set up Flutter.
       - name: Clone Flutter repository with ${{ matrix.channel }} channel
         uses: subosito/flutter-action@v1.5.3
@@ -98,6 +93,12 @@ jobs:
           Copy-Item (vswhere -latest -find 'VC\Redist\MSVC\*\x64\*\vcruntime140.dll') .
           Copy-Item (vswhere -latest -find 'VC\Redist\MSVC\*\x64\*\vcruntime140_1.dll') .      
       
+      # Set up env variables.
+      - name: Get release tag version
+        run: echo "RELEASE_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Create build asset name
+        run: echo "BUILD_ASSET_NAME=${{ env.REPOSITORY_NAME }}_${{ matrix.build_target }}_${{ env.RELEASE_TAG }}${{ matrix.asset_extension }}" >> $GITHUB_ENV
+        
       # Compress build.
       - name: Compress build for Windows
         if: matrix.build_target == 'windows'
@@ -120,8 +121,6 @@ jobs:
       - name: Upload release asset
         id: upload_release_asset
         uses: softprops/action-gh-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           name: Flutter Test v${{ env.RELEASE_TAG }}
           draft: true
