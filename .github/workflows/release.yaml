@@ -88,7 +88,7 @@ jobs:
       - name: Enable web support
         if: matrix.build_target == 'web'
         run: flutter config --enable-web
-      - name: Enable ${{ matrix.target }} desktop support
+      - name: Enable ${{ matrix.target }} support
         if: matrix.build_target == 'linux' || matrix.build_target == 'windows' || matrix.build_target == 'macos'
         run: flutter config --enable-${{ matrix.build_target }}-desktop
       - name: Run Flutter doctor
@@ -100,13 +100,6 @@ jobs:
         with:
           repository: 'FerMod/flutter_notes'
       
-      - name: Cache Gradle packages
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-      
       - name: Cache
         uses: actions/cache@v2
         env:
@@ -114,9 +107,10 @@ jobs:
         with:
           path: |
             $PUB_CACHE
+            $GITHUB_WORKSPACE/.dart_tool
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/pubspeck.lock') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/pubspec.lock') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
