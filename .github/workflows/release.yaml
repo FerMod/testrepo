@@ -108,11 +108,8 @@ jobs:
           path: |
             $PUB_CACHE
             $GITHUB_WORKSPACE/.dart_tool
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key:  ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.target }}-${{ hashFiles('**/pubspec.lock') }}
+          key:  ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/pubspec.lock') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.target }}-
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
