@@ -88,7 +88,7 @@ jobs:
       - name: Enable web support
         if: matrix.target == 'web'
         run: flutter config --enable-web
-      - name: Enable ${{ matrix.target }} support
+      - name: Enable desktop support
         if: matrix.target == 'linux' || matrix.target == 'windows' || matrix.target == 'macos'
         run: flutter config --enable-${{ matrix.build_target }}-desktop
       - name: Run Flutter doctor
@@ -110,8 +110,9 @@ jobs:
             $GITHUB_WORKSPACE/.dart_tool
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/pubspec.lock') }}
+          key:  ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.target }}-${{ hashFiles('**/pubspec.lock') }}
           restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.target }}-
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
