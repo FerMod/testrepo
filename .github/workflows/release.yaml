@@ -15,6 +15,7 @@ on:
 
 jobs:
   test-workflow:
+    if: ${{ !always() }}
     name: Test Workflows
     runs-on: ubuntu-latest
     steps:
@@ -28,29 +29,7 @@ jobs:
         
       - name: Get release tag version
         run: echo "BUILD_ASSET_NAME=${{ github.event.repository.name }}_something-${GITHUB_REF#refs/*/}.extension" >> $GITHUB_ENV
-      
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJSON(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJSON(steps) }}
-        run: echo "$STEPS_CONTEXT"
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJSON(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
   build:
-    if: ${{ !always() }}
     name: Create ${{ matrix.target }} build
     runs-on: ${{ matrix.os }}
     strategy:
@@ -160,40 +139,65 @@ jobs:
       # Build the application.
       - name: Build project
         run: flutter build -v ${{ matrix.build_target }} --release
+      - name: Tree
+        run: |
+          apt get install tree
+          tree
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJSON(job) }}
+        run: echo "$JOB_CONTEXT"
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJSON(steps) }}
+        run: echo "$STEPS_CONTEXT"
+      - name: Dump runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJSON(runner) }}
+        run: echo "$RUNNER_CONTEXT"
+      - name: Dump strategy context
+        env:
+          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
+        run: echo "$STRATEGY_CONTEXT"
+      - name: Dump matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
 
       # Prepare release build package.
-      - name: Copy VC redistributables to release directory for Windows
-        if: matrix.build_target == 'windows'
-        run: |
-          Copy-Item (vswhere -latest -find 'VC\Redist\MSVC\*\x64\*\msvcp140.dll') .
-          Copy-Item (vswhere -latest -find 'VC\Redist\MSVC\*\x64\*\vcruntime140.dll') .
-          Copy-Item (vswhere -latest -find 'VC\Redist\MSVC\*\x64\*\vcruntime140_1.dll') .
+      #- name: Copy VC redistributables to release directory for Windows
+      #  if: matrix.build_target == 'windows'
+      #  run: |
+      #    Copy-Item (vswhere -latest -find 'VC\Redist\MSVC\*\x64\*\msvcp140.dll') .
+      #    Copy-Item (vswhere -latest -find 'VC\Redist\MSVC\*\x64\*\vcruntime140.dll') .
+      #    Copy-Item (vswhere -latest -find 'VC\Redist\MSVC\*\x64\*\vcruntime140_1.dll') .
 
       # Compress build.
-      - name: Compress build for Windows
-        if: matrix.build_target == 'windows'
-        run: compress-archive -Path * -DestinationPath ./${{ env.BUILD_ASSET_NAME }}
-        working-directory: ${{ matrix.build_path }}
-      - name: Compress build for Linux
-        if: matrix.build_target == 'linux' || matrix.build_target == 'web'
-        run: tar czf ./${{ env.BUILD_ASSET_NAME }} *
-        working-directory: ${{ matrix.build_path }}
-      - name: Compress build for macOS
-        if: matrix.build_target == 'macos'
-        run: ditto -c -k --sequesterRsrc --keepParent '*.app' ./${{ env.BUILD_ASSET_NAME }}
-        working-directory: ${{ matrix.build_path }}
-      - name: Rename build for Android
-        if: matrix.build_target == 'apk' || matrix.build_target == 'appbundle'
-        run: mv app-release${{ matrix.asset_extension }} ./${{ env.BUILD_ASSET_NAME }}
-        working-directory: ${{ matrix.build_path }}
-
+      #- name: Compress build for Windows
+      #  if: matrix.build_target == 'windows'
+      #  run: compress-archive -Path * -DestinationPath ./${{ env.BUILD_ASSET_NAME }}
+      #  working-directory: ${{ matrix.build_path }}
+      #- name: Compress build for Linux
+      #  if: matrix.build_target == 'linux' || matrix.build_target == 'web'
+      #  run: tar czf ./${{ env.BUILD_ASSET_NAME }} *
+      #  working-directory: ${{ matrix.build_path }}
+      #- name: Compress build for macOS
+      #  if: matrix.build_target == 'macos'
+      #  run: ditto -c -k --sequesterRsrc --keepParent '*.app' ./${{ env.BUILD_ASSET_NAME }}
+      #  working-directory: ${{ matrix.build_path }}
+      #- name: Rename build for Android
+      #  if: matrix.build_target == 'apk' || matrix.build_target == 'appbundle'
+      #  run: mv app-release${{ matrix.asset_extension }} ./${{ env.BUILD_ASSET_NAME }}
+      #  working-directory: ${{ matrix.build_path }}
+        
       # Upload the build.
-      - name: Upload release asset
-        id: upload_release_asset
-        uses: softprops/action-gh-release@v1
-        with:
-          name: Flutter Test v${{ env.RELEASE_TAG }}
-          draft: true
-          prerelease: false
-          files: |
-            ./${{ matrix.build_path }}/${{ env.BUILD_ASSET_NAME }}
+     #- name: Upload release asset
+     #  if: ${{ !always() }}
+     #  id: upload_release_asset
+     #  uses: softprops/action-gh-release@v1
+     #  with:
+     #    name: Flutter Test v${{ env.RELEASE_TAG }}
+     #    draft: true
+     #    prerelease: false
+     #    files: |
+     #      ./${{ matrix.build_path }}/${{ env.BUILD_ASSET_NAME }}
