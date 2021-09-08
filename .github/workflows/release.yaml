@@ -51,7 +51,7 @@ jobs:
       - name: Get release tag version
         run: echo "RELEASE_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - name: Bash Version
-        run: echo "${{ BASH_VERSION }}"
+        run: bash --version
       - name: Create build asset name
         run: |
           build_target_name="${matrix.build_target,,}"
