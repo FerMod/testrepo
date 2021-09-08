@@ -100,6 +100,13 @@ jobs:
         with:
           repository: 'FerMod/flutter_notes'
       
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+      
       - name: Cache
         uses: actions/cache@v2
         env:
@@ -122,9 +129,7 @@ jobs:
       - name: Build project
         run: flutter build -v ${{ matrix.build_target }} --release
       - name: Tree
-        run: |
-          apt install tree
-          tree
+        run: ls
       - name: Dump job context
         env:
           JOB_CONTEXT: ${{ toJSON(job) }}
