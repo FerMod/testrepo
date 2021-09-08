@@ -28,8 +28,29 @@ jobs:
         
       - name: Get release tag version
         run: echo "BUILD_ASSET_NAME=${{ github.event.repository.name }}_something-${GITHUB_REF#refs/*/}.extension" >> $GITHUB_ENV
-
+      
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJSON(job) }}
+        run: echo "$JOB_CONTEXT"
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJSON(steps) }}
+        run: echo "$STEPS_CONTEXT"
+      - name: Dump runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJSON(runner) }}
+        run: echo "$RUNNER_CONTEXT"
+      - name: Dump strategy context
+        env:
+          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
+        run: echo "$STRATEGY_CONTEXT"
+      - name: Dump matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
   build:
+    if: ${{ !always() }}
     name: Create ${{ matrix.target }} build
     runs-on: ${{ matrix.os }}
     strategy:
@@ -123,9 +144,8 @@ jobs:
         env:
           cache-name: cache-flutter
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
           path: |
-            ${{ PUB_CACHE }}
+            $PUB_CACHE
             ~/.gradle/caches
             ~/.gradle/wrapper
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/pubspeck.lock') }}
