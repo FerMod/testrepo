@@ -48,24 +48,6 @@ jobs:
             build_path: build/app/outputs/bundle/release
             asset_extension: .aab
             channel: stable
-          #- os: ubuntu-20.04
-          #  target: Linux
-          #  build_target: linux
-          #  build_path: build/linux/release/bundle
-          #  asset_extension: .tar.gz
-          #  channel: stable
-          - os: macos-10.15
-            target: macOS
-            build_target: macos
-            build_path: build/macos/Build/Products/Release
-            asset_extension: .zip
-            channel: stable
-          #- os: windows-2019
-          #  target: windows
-          #  build_target: windows
-          #  build_path: build/windows/runner/Release
-          #  asset_extension: .zip
-          #  channel: stable
           - os: ubuntu-20.04
             target: Web
             build_target: web
@@ -141,7 +123,7 @@ jobs:
         run: flutter build -v ${{ matrix.build_target }} --release
       - name: Tree
         run: |
-          apt get install tree
+          apt install tree
           tree
       - name: Dump job context
         env:
