@@ -125,6 +125,8 @@ jobs:
             ${{ env.FLUTTER_ROOT }}/bin
             **/.dart_tool
             **/.packages
+            **/.flutter-plugins
+            **/.flutter-plugin-dependencies
           key: ${{ runner.os }}-${{ env.CACHE_NAME }}-${{ hashFiles('**/pubspec.lock') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.CACHE_NAME }}-
