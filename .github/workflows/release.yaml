@@ -106,30 +106,28 @@ jobs:
         if: matrix.target == 'android'
         uses: actions/cache@v2
         env:
-          CACHE_NAME: cache-gradle
+          CACHE_NAME: gradle
         with:
           path: |
-            **/.gradle/caches
-            **/.gradle/wrapper
-          key: build-${{ env.CACHE_NAME }}-${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-${{ env.CACHE_NAME }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
-            build-${{ env.CACHE_NAME }}-${{ runner.os }}-
-            build-${{ env.CACHE_NAME }}-
+            ${{ runner.os }}-${{ env.CACHE_NAME }}-
 
       - name: Cache pubspec dependencies
         uses: actions/cache@v2
         env:
-          CACHE_NAME: cache-pubspec
+          CACHE_NAME: pubspec
         with:
           path: |
             ${{ env.PUB_CACHE }}
             ${{ env.FLUTTER_ROOT }}/bin
             **/.dart_tool
             **/.packages
-          key: build-${{ env.CACHE_NAME }}-${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}
+          key: ${{ runner.os }}-${{ env.CACHE_NAME }}-${{ hashFiles('**/pubspec.lock') }}
           restore-keys: |
-            build-${{ env.CACHE_NAME }}-${{ runner.os }}-
-            build-${{ env.CACHE_NAME }}-
+            ${{ runner.os }}-${{ env.CACHE_NAME }}-
 
       - name: Get packages for the Flutter project
         run: flutter pub get
