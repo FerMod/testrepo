@@ -70,14 +70,13 @@ jobs:
       
       # Set up Flutter.
       - name: Cache Flutter
-        if: matrix.target == 'android'
         uses: actions/cache@v2
         env:
           CACHE_NAME: flutter
         with:
           path: |
-            ${{ env.FLUTTER_ROOT }}
-          key: ${{ runner.os }}-${{ env.CACHE_NAME }}-${{ hashFiles('**/version') }}
+            **/opt/hostedtoolcache/flutter/
+          key: ${{ runner.os }}-${{ env.CACHE_NAME }}-${{ hashFiles('**/opt/hostedtoolcache/flutter/version') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.CACHE_NAME }}-
       - name: Clone Flutter repository with ${{ matrix.channel }} channel
