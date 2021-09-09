@@ -108,6 +108,7 @@ jobs:
         with:
           path: |
             ${{ env.PUB_CACHE }}
+            ${{ env.FLUTTER_HOME }}/bin
             **/.dart_tool
             **/.packages
           key: build-${{ env.CACHE_NAME }}-${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}
