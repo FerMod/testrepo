@@ -101,6 +101,20 @@ jobs:
           repository: 'FerMod/flutter_notes'
       
       # Cache required files.
+      - name: Cache Gradle packages
+        if: matrix.target == 'android'
+        uses: actions/cache@v2
+        env:
+          CACHE_NAME: cache-gradle
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: build-${{ env.CACHE_NAME }}-${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            build-${{ env.CACHE_NAME }}-${{ runner.os }}-
+            build-${{ env.CACHE_NAME }}-
+
       - name: Cache pubspec dependencies
         uses: actions/cache@v2
         env:
@@ -115,7 +129,6 @@ jobs:
           restore-keys: |
             build-${{ env.CACHE_NAME }}-${{ runner.os }}-
             build-${{ env.CACHE_NAME }}-
-            build-
 
       - name: Get packages for the Flutter project
         run: flutter pub get
