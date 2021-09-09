@@ -108,8 +108,8 @@ jobs:
           CACHE_NAME: cache-gradle
         with:
           path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
+            **/.gradle/caches
+            **/.gradle/wrapper
           key: build-${{ env.CACHE_NAME }}-${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}
           restore-keys: |
             build-${{ env.CACHE_NAME }}-${{ runner.os }}-
@@ -132,38 +132,6 @@ jobs:
 
       - name: Get packages for the Flutter project
         run: flutter pub get
-
-      # Build the application.
-      - name: Build project
-        run: flutter build -v ${{ matrix.build_target }} --release
-      - name: Ls
-        run: ls -la
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJSON(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJSON(steps) }}
-        run: echo "$STEPS_CONTEXT"
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJSON(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
-
-#     # Clone the repository and get required packages.
-#     - name: Clone the repository
-#       uses: actions/checkout@v2
-#     - name: Get packages for the Flutter project
-#       run: flutter pub get
 
       # Build the application.
       - name: Build project
