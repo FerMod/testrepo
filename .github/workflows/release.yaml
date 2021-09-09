@@ -110,9 +110,9 @@ jobs:
             ${{ env.PUB_CACHE }}
             **/.dart_tool
             **/.packages
-          key: build-${{ env.CACHE_NAME }}-${{ hashFiles('**/pubspec.lock') }}
+          key: build-${{ env.CACHE_NAME }}-${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}
           restore-keys: |
-            build-${{ env.CACHE_NAME }}-${{ runner.os }}
+            build-${{ env.CACHE_NAME }}-${{ runner.os }}-
             build-${{ env.CACHE_NAME }}-
             build-
             
