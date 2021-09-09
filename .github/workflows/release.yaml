@@ -100,19 +100,34 @@ jobs:
         with:
           repository: 'FerMod/flutter_notes'
       
-      - name: Cache
+      # Cache Flutter
+      - name: Cache pubspec dependencies
         uses: actions/cache@v2
         env:
-          cache-name: cache-flutter
+          CACHE_NAME: cache-pubspec
         with:
           path: |
             $PUB_CACHE
-            $GITHUB_WORKSPACE/.dart_tool
-          key:  ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/pubspec.lock') }}
+            **/.dart_tool
+            **/.packages
+          key: build-${{ env.CACHE_NAME }}-${{ hashFiles('**/pubspec.lock') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+            build-${{ env.CACHE_NAME }}-
+            build-
+            
+#      - name: Cache
+#        uses: actions/cache@v2
+#        env:
+#          cache-name: cache-flutter
+#        with:
+#          path: |
+#            $PUB_CACHE
+#            $GITHUB_WORKSPACE/.dart_tool
+#          key: ${{ runner.os }}-build-${{ env.CACHE_NAME }}-${{ hashFiles('**/pubspec.lock') }}
+#          restore-keys: |
+#            ${{ runner.os }}-build-${{ env.cache-name }}-
+#            ${{ runner.os }}-build-
+#            ${{ runner.os }}-
       
       - name: Get packages for the Flutter project
         run: flutter pub get
