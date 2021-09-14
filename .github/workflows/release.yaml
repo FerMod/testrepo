@@ -61,7 +61,7 @@ jobs:
         run: flutter build -v web --base-href "/testrepo/"
       
       - name: Create symbolic link
-        run: cp -a ./build/web/ ./docs/
+        run: cp -r ./build/web/ ./docs/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
