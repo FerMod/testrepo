@@ -12,7 +12,6 @@ on:
     tags:
       - "v*" # Push events that match "*". For example: "1.0", "20.15.10"
 
-
 jobs:
   test-workflow:
     if: ${{ !always() }}
@@ -29,7 +28,47 @@ jobs:
         
       - name: Get release tag version
         run: echo "BUILD_ASSET_NAME=${{ github.event.repository.name }}_something-${GITHUB_REF#refs/*/}.extension" >> $GITHUB_ENV
+
+  deploy:
+    name: Deploy GitHub Pages
+    runs-on: ubuntu-20.04
+    env:
+      channel: stable
+    steps:
+      # Set up Flutter.
+      - name: Clone Flutter repository with ${{ env.channel }} channel
+        uses: subosito/flutter-action@v1.5.3
+        with:
+          channel: ${{ env.channel }}
+      - name: Run Flutter doctor
+        run: flutter doctor -v
+
+      # Clone the repository and get required packages.
+      - name: Clone the repository
+        uses: actions/checkout@v2
+        with:
+          repository: 'FerMod/flutter_notes'
+          ref: 'FerMod'
+      - name: Get packages for the Flutter project
+        run: |
+          dart pub global activate dartdoc
+          flutter pub get
+          dartdoc --output "docs\api"
+
+      # Create web build.
+      - name: Create symbolic link
+        run: ln -s ./build/web ./docs
+      - name: Build project
+        run: flutter build -v web --base-href "/testrepo/"
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+
   build:
+    if: ${{ !always() }}
     name: Create ${{ matrix.target }} build
     runs-on: ${{ matrix.os }}
     strategy:
