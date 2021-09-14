@@ -54,7 +54,7 @@ jobs:
           dart pub global activate dartdoc
           flutter pub get
           mkdir -p docs
-          dartdoc --output "docs\api"
+          dartdoc --output "docs/api"
 
       # Create web build.
       - name: Create symbolic link
