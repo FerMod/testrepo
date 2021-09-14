@@ -53,6 +53,7 @@ jobs:
         run: |
           dart pub global activate dartdoc
           flutter pub get
+          mkdir -p docs
           dartdoc --output "docs\api"
 
       # Create web build.
