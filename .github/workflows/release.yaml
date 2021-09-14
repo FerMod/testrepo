@@ -50,17 +50,17 @@ jobs:
           repository: 'FerMod/flutter_notes'
           ref: 'FerMod'
       - name: Get packages for the Flutter project
-        run: |
-          dart pub global activate dartdoc
-          flutter pub get
-          mkdir -p docs
-          dartdoc --output "docs/api"
+        run: flutter pub get
 
       # Create web build.
       - name: Create symbolic link
         run: ln -s ./build/web ./docs
       - name: Build project
         run: flutter build -v web --base-href "/testrepo/"
+      - name: Create docs
+        run: |
+          dart pub global activate dartdoc
+          dartdoc --output "docs/api"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
