@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the maybeOf method from the ModelBinding class, for the Dart programming language.">
+  <title>maybeOf method - ModelBinding class - model_binding library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">flutter_notes</a></li>
+    <li><a href="../../widgets_model_binding/widgets_model_binding-library.html">model_binding</a></li>
+    <li><a href="../../widgets_model_binding/ModelBinding-class.html">ModelBinding<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></a></li>
+    <li class="self-crumb">maybeOf&lt;<wbr><span class="type-parameter">T</span>&gt; method</li>
+  </ol>
+  <div class="self-name">maybeOf</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-method">maybeOf&lt;<wbr><span class="type-parameter">T</span>&gt;</span> method 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype">T?</span>
+<span class="name ">maybeOf</span>&lt;<wbr><span class="type-parameter">T</span>&gt;(<wbr><ol class="parameter-list"><li><span class="parameter" id="maybeOf-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span></span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Returns the <a href="../../widgets_model_binding/ModelBinding-class.html">ModelBinding</a> widgets <a href="../../widgets_model_binding/ModelBinding/initialModel.html">initialModel</a> from the closest
+instance of this class that encloses the given context, if any.</p>
+<p>Use this function if you want to allow situations where no <a href="../../widgets_model_binding/ModelBinding-class.html">ModelBinding</a>
+is in scope. Prefer using <a href="../../widgets_model_binding/ModelBinding/of.html">ModelBinding.of</a> in situations where a
+<a href="../../widgets_model_binding/ModelBinding-class.html">ModelBinding</a> is always expected to exist.</p>
+<p>If there is no <a href="../../widgets_model_binding/ModelBinding-class.html">ModelBinding</a> in scope, then this function will return
+null.</p>
+<p>You can use this function to obtain the <a href="../../widgets_model_binding/ModelBinding/initialModel.html">initialModel</a>. When that
+information changes, your widget will be scheduled to be rebuilt, keeping
+your widget up-to-date.</p>
+<p>Typical usage is as follows:</p>
+<pre class="language-dart"><code class="language-dart">T? model = ModelBinding.maybeOf&lt;T&gt;(context);
+if (model == null) {
+  // Do something else instead.
+}
+</code></pre>
+<p>See also:</p>
+<ul>
+<li><a href="../../widgets_model_binding/ModelBinding/of.html">of</a>, which is a similar function, except that it will throw an
+  exception if a <a href="../../widgets_model_binding/ModelBinding-class.html">ModelBinding</a> is not found in the given context.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">static T? maybeOf&lt;T&gt;(BuildContext context) {
+  assert(
+    &#47;&#47; ignore: unnecessary_null_comparison
+    context != null,
+    &#39;Tried to call ModelBinding.maybeOf&lt;$T&gt; on a `context` that is `null`.\n&#39;
+    &#39;This can happen if context of a StatefulWidget is used and that &#39;
+    &#39;StatefulWidget was disposed.&#39;,
+  );
+  assert(
+    T != dynamic,
+    &#39;Tried to call ModelBinding.maybeOf&lt;dynamic&gt;.\n&#39;
+    &#39;If you want to expose a variable that can be anything, consider &#39;
+    &#39;replacing `dynamic` with `Object` instead.&#39;,
+  );
+
+  final scope = _ModelBindingScope.of&lt;T&gt;(context);
+  return scope?.modelBindingState.currentModel;
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../../index.html">flutter_notes</a></li>
+  <li><a href="../../widgets_model_binding/widgets_model_binding-library.html">model_binding</a></li>
+  <li><a href="../../widgets_model_binding/ModelBinding-class.html">ModelBinding<span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></a></li>
+  <li class="self-crumb">maybeOf&lt;<wbr><span class="type-parameter">T</span>&gt; method</li>
+</ol>
+
+
+    <h5>ModelBinding class</h5>
+    <ol>
+
+    <li class="section-title"><a href="../../widgets_model_binding/ModelBinding-class.html#constructors">Constructors</a></li>
+    <li><a href="../../widgets_model_binding/ModelBinding/ModelBinding.html">ModelBinding</a></li>
+
+
+    <li class="section-title">
+      <a href="../../widgets_model_binding/ModelBinding-class.html#instance-properties">Properties</a>
+    </li>
+    <li><a href="../../widgets_model_binding/ModelBinding/builder.html">builder</a></li>
+    <li><a href="../../widgets_model_binding/ModelBinding/child.html">child</a></li>
+    <li><a href="../../widgets_model_binding/ModelBinding/dispose.html">dispose</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/hashCode.html">hashCode</a></li>
+    <li><a href="../../widgets_model_binding/ModelBinding/initialModel.html">initialModel</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/key.html">key</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+
+    <li class="section-title"><a href="../../widgets_model_binding/ModelBinding-class.html#instance-methods">Methods</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/StatefulWidget/createElement.html">createElement</a></li>
+    <li><a href="../../widgets_model_binding/ModelBinding/createState.html">createState</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
+    <li><a href="../../widgets_model_binding/ModelBinding/debugFillProperties.html">debugFillProperties</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html">toDiagnosticsNode</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html">toString</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html">toStringDeep</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html">toStringShallow</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/toStringShort.html">toStringShort</a></li>
+
+    <li class="section-title inherited"><a href="../../widgets_model_binding/ModelBinding-class.html#operators">Operators</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html">operator ==</a></li>
+
+
+
+    <li class="section-title"><a href="../../widgets_model_binding/ModelBinding-class.html#static-methods">Static methods</a></li>
+    <li><a href="../../widgets_model_binding/ModelBinding/maybeOf.html">maybeOf</a></li>
+    <li><a href="../../widgets_model_binding/ModelBinding/of.html">of</a></li>
+    <li><a href="../../widgets_model_binding/ModelBinding/update.html">update</a></li>
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    flutter_notes
+      0.3.3-beta.1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+
