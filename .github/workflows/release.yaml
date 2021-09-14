@@ -56,12 +56,6 @@ jobs:
         run: |
           dart pub global activate dartdoc
           dartdoc --output "docs/api"
-      # Create web build.
-      - name: Build project
-        run: flutter build -v web --base-href "/testrepo/"
-      
-      - name: Create symbolic link
-        run: cp -r ./build/web/ ./docs/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
