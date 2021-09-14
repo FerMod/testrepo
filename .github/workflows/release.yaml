@@ -51,16 +51,19 @@ jobs:
           ref: 'FerMod'
       - name: Get packages for the Flutter project
         run: flutter pub get
-
-      # Create web build.
-      - name: Create symbolic link
-        run: ln -s ./build/web ./docs
-      - name: Build project
-        run: flutter build -v web --base-href "/testrepo/"
+      
       - name: Create docs
         run: |
           dart pub global activate dartdoc
           dartdoc --output "docs/api"
+      # Create web build.
+      - name: Create symbolic link
+        run: |
+          git config --global core.symlinks false
+          ln -s ./build/web ./docs
+      - name: Build project
+        run: flutter build -v web --base-href "/testrepo/"
+
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
