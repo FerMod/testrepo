@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the UserAvatar constructor from the Class UserAvatar class from the user_avatar library, for the Dart programming language.">
+  <title>UserAvatar constructor - UserAvatar class - user_avatar library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">flutter_notes</a></li>
+    <li><a href="../../widgets_user_avatar/widgets_user_avatar-library.html">user_avatar</a></li>
+    <li><a href="../../widgets_user_avatar/UserAvatar-class.html">UserAvatar</a></li>
+    <li class="self-crumb">UserAvatar const constructor</li>
+  </ol>
+  <div class="self-name">UserAvatar</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-constructor">UserAvatar</span> constructor 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+</h1></div>
+
+    <section class="multi-line-signature">const
+      <span class="name ">UserAvatar</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-key">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/foundation/Key-class.html">Key</a>?</span> <span class="parameter-name">key</span>, </span></li>
+<li><span class="parameter" id="-param-imageUrl"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">imageUrl</span>, </span></li>
+<li><span class="parameter" id="-param-nameText"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">nameText</span>, </span></li>
+<li><span class="parameter" id="-param-fit"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/painting/BoxFit.html">BoxFit</a></span> <span class="parameter-name">fit</span> = <span class="default-value">BoxFit.cover</span>, </span></li>
+<li><span class="parameter" id="-param-shape"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/painting/BoxShape.html">BoxShape</a></span> <span class="parameter-name">shape</span> = <span class="default-value">BoxShape.circle</span>, </span></li>
+<li><span class="parameter" id="-param-alignment"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/painting/AlignmentGeometry-class.html">AlignmentGeometry</a></span> <span class="parameter-name">alignment</span> = <span class="default-value">Alignment.center</span>, </span></li>
+<li><span class="parameter" id="-param-radius"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a>?</span> <span class="parameter-name">radius</span>, </span></li>
+<li><span class="parameter" id="-param-minRadius"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a>?</span> <span class="parameter-name">minRadius</span>, </span></li>
+<li><span class="parameter" id="-param-maxRadius"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a>?</span> <span class="parameter-name">maxRadius</span>, </span></li>
+<li><span class="parameter" id="-param-onTap"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/VoidCallback.html">VoidCallback</a>?</span> <span class="parameter-name">onTap</span>, </span></li>
+<li><span class="parameter" id="-param-onImageError"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/painting/ImageErrorListener.html">ImageErrorListener</a>?</span> <span class="parameter-name">onImageError</span>}</span></li>
+</ol>)
+    </section>
+
+    
+<section class="desc markdown">
+  <p>Displays the image given the <code>imageUrl</code>, or generates an image with one of
+more initials with <code>nameText</code>.</p>
+<p>If both of <code>imageUrl</code> and <code>nameText</code>, are null or empty then a default
+user icon will be displayed.</p>
+<p>Requires one of its ancestors to be a <a href="https://api.flutter.dev/flutter/material/Material-class.html">Material</a> widget.</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">const UserAvatar({
+  Key? key,
+  String? imageUrl,
+  String? nameText,
+  this.fit = BoxFit.cover,
+  this.shape = BoxShape.circle,
+  this.alignment = Alignment.center,
+  this.radius,
+  this.minRadius,
+  this.maxRadius,
+  this.onTap,
+  this.onImageError,
+})  : imageUrl = imageUrl ?? &#39;&#39;,
+      nameText = nameText ?? &#39;&#39;,
+      assert(
+        radius == null || (minRadius == null &amp;&amp; maxRadius == null),
+        &#39;Cannot provide a radius and also a minRadius and&#47;or maxRadius\n&#39;
+        &#39;Use only radius or use only minRadius and&#47;or maxRadius.&#39;,
+      ),
+      super(key: key);</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../../index.html">flutter_notes</a></li>
+  <li><a href="../../widgets_user_avatar/widgets_user_avatar-library.html">user_avatar</a></li>
+  <li><a href="../../widgets_user_avatar/UserAvatar-class.html">UserAvatar</a></li>
+  <li class="self-crumb">UserAvatar const constructor</li>
+</ol>
+
+
+    <h5>UserAvatar class</h5>
+    <ol>
+
+    <li class="section-title"><a href="../../widgets_user_avatar/UserAvatar-class.html#constructors">Constructors</a></li>
+    <li><a href="../../widgets_user_avatar/UserAvatar/UserAvatar.html">UserAvatar</a></li>
+
+
+    <li class="section-title">
+      <a href="../../widgets_user_avatar/UserAvatar-class.html#instance-properties">Properties</a>
+    </li>
+    <li><a href="../../widgets_user_avatar/UserAvatar/alignment.html">alignment</a></li>
+    <li><a href="../../widgets_user_avatar/UserAvatar/fit.html">fit</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/hashCode.html">hashCode</a></li>
+    <li><a href="../../widgets_user_avatar/UserAvatar/imageUrl.html">imageUrl</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/key.html">key</a></li>
+    <li><a href="../../widgets_user_avatar/UserAvatar/maxRadius.html">maxRadius</a></li>
+    <li><a href="../../widgets_user_avatar/UserAvatar/minRadius.html">minRadius</a></li>
+    <li><a href="../../widgets_user_avatar/UserAvatar/nameText.html">nameText</a></li>
+    <li><a href="../../widgets_user_avatar/UserAvatar/onImageError.html">onImageError</a></li>
+    <li><a href="../../widgets_user_avatar/UserAvatar/onTap.html">onTap</a></li>
+    <li><a href="../../widgets_user_avatar/UserAvatar/radius.html">radius</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+    <li><a href="../../widgets_user_avatar/UserAvatar/shape.html">shape</a></li>
+
+    <li class="section-title"><a href="../../widgets_user_avatar/UserAvatar-class.html#instance-methods">Methods</a></li>
+    <li><a href="../../widgets_user_avatar/UserAvatar/build.html">build</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/StatelessWidget/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/debugDescribeChildren.html">debugDescribeChildren</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/debugFillProperties.html">debugFillProperties</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toDiagnosticsNode.html">toDiagnosticsNode</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/Diagnosticable/toString.html">toString</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringDeep.html">toStringDeep</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/foundation/DiagnosticableTree/toStringShallow.html">toStringShallow</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/toStringShort.html">toStringShort</a></li>
+
+    <li class="section-title inherited"><a href="../../widgets_user_avatar/UserAvatar-class.html#operators">Operators</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/widgets/Widget/operator_equals.html">operator ==</a></li>
+
+
+
+
+    <li class="section-title"><a href="../../widgets_user_avatar/UserAvatar-class.html#constants">Constants</a></li>
+    <li><a href="../../widgets_user_avatar/UserAvatar/defaultRadius-constant.html">defaultRadius</a></li>
+</ol>
+
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    flutter_notes
+      0.3.3-beta.1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+
