@@ -30,6 +30,7 @@ jobs:
         run: echo "BUILD_ASSET_NAME=${{ github.event.repository.name }}_something-${GITHUB_REF#refs/*/}.extension" >> $GITHUB_ENV
 
   deploy:
+    if: ${{ !always() }}
     name: Deploy GitHub Pages
     runs-on: ubuntu-20.04
     env:
@@ -62,6 +63,44 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
+
+  test-build:
+    name: Test ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        target: [Android, Web] # [Android, iOS, Linux, macOS, Windows, Web]
+        include:
+          - os: ubuntu-20.04
+            target: Android
+            build_target: apk
+            build_path: build/app/outputs/apk/release
+            asset_extension: .apk
+            channel: stable
+          - os: ubuntu-20.04
+            target: Android
+            build_target: appbundle
+            build_path: build/app/outputs/bundle/release
+            asset_extension: .aab
+            channel: stable
+          - os: ubuntu-20.04
+            target: Web
+            build_target: web
+            build_path: build/web
+            asset_extension: .tar.gz
+            channel: stable
+      # Disable fail-fast as we want results from all even if one fails.
+      fail-fast: false
+    steps:
+      - name: "A"
+        env:
+          os: ${{ matrix.os }}
+          target: ${{ matrix.target }}
+          build_target: ${{ matrix.build_target }}
+          build_path: ${{ matrix.build_path }}
+          asset_extension: ${{ matrix.asset_extension }}
+          channel: ${{ matrix.channel }}   
+        run: echo "Matrix evaluation"
 
   build:
     if: ${{ !always() }}
